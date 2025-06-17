@@ -11,7 +11,7 @@ export async function uploadData(dataUrl, lat, lon) {
   const file = await response.blob();
 
   const { data: storageData, error: uploadError } = await supabase.storage
-    .from('foto')
+    .from('1254')
     .upload(fileName, file, { contentType: 'image/jpeg' });
 
   if (uploadError) {
@@ -19,7 +19,7 @@ export async function uploadData(dataUrl, lat, lon) {
     return;
   }
 
-  const imageUrl = `${supabaseUrl}/storage/v1/object/public/foto/${fileName}`;
+  const imageUrl = `${supabaseUrl}/storage/v1/object/public/1254/${fileName}`;
   const { error: dbError } = await supabase
     .from('pengunjung')
     .insert([{ latitude: lat, longitude: lon, timestamp: new Date().toISOString(), image_url: imageUrl }]);
