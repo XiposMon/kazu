@@ -1,5 +1,3 @@
-
-// GANTI bagian ini dengan config Firebase milik kamu
 const firebaseConfig = {
   apiKey: "AIzaSyBVKy5fZQaqyWnPeUoUufSL9WHT-kkv7vY",
   authDomain: "raideneii.firebaseapp.com",
@@ -33,6 +31,3 @@ async function uploadData(dataUrl, lat, lon) {
 
   alert("Data berhasil dikirim ✅");
 }
-
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
