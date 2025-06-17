@@ -22,7 +22,7 @@ export async function uploadData(dataUrl, lat, lon) {
   const imageUrl = `${supabaseUrl}/storage/v1/object/public/foto/${fileName}`;
   const { error: dbError } = await supabase
     .from('pengunjung')
-    .insert([{ latitude: lat, Longitude: lon, timestamp: new Date().toISOString(), image_url: imageUrl }]);
+    .insert([{ latitude: lat, longitude: lon, timestamp: new Date().toISOString(), image_url: imageUrl }]);
 
   if (dbError) {
     alert('Gagal menyimpan ke database: ' + dbError.message);
