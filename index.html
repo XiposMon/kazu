@@ -1,50 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <title>Capture Pengunjung - Supabase</title>
-  <script type="module" src="supabase.js"></script>
+    <meta charset="UTF-8">
+    <title>Dashboard Saya</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Remixicon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(120deg, #41e2e2 0%, #5b8df6 100%);
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+        .sidebar {
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .card-custom {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: #fff;
+            border-radius: 16px;
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-  <h2>📸 Mengambil Gambar & Lokasi...</h2>
-  <button id="startCapture">Mulai Ambil Foto & Lokasi</button>
 
-  <video id="video" autoplay playsinline style="display:none;"></video>
-  <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-2 sidebar">
+            <div class="d-flex flex-column align-items-center gap-4">
+                <i class="ri-home-5-line fs-4"></i>
+                <i class="ri-qr-code-line fs-4"></i>
+                <i class="ri-barcode-line fs-4"></i>
+                <i class="ri-settings-3-line fs-4"></i>
+            </div>
+        </div>
 
-  <script type="module">
-    import { uploadData } from './supabase.js';
+        <!-- Main Content -->
+        <div class="col-10">
+            <!-- Header -->
+            <div class="header d-flex justify-content-between align-items-center">
+                <div id="clock" class="fw-bold fs-5">00:00:00</div>
+                <div class="d-flex gap-3 align-items-center">
+                    <span>Halo, <strong>User</strong></span>
+                    <button class="btn btn-danger btn-sm">Logout</button>
+                </div>
+            </div>
 
-    async function initCapture() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
-        const video = document.getElementById("video");
-        video.srcObject = stream;
+            <!-- Content Area -->
+            <div class="card-custom">
+                <h3>QR & Barcode Generator</h3>
+                <textarea class="form-control mb-3" rows="3" placeholder="Masukkan teks..."></textarea>
+                <div class="mb-3">
+                    <button class="btn btn-primary">Generate</button>
+                </div>
+                <div class="output">
+                    <!-- Output QR/Barcode -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        await new Promise(resolve => video.onloadedmetadata = resolve);
+<script>
+    // Jam realtime
+    setInterval(() => {
+        const now = new Date();
+        const time = now.toLocaleTimeString('id-ID', { hour12: false });
+        document.getElementById('clock').innerText = time;
+    }, 1000);
+</script>
 
-        const canvas = document.getElementById("canvas");
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const dataUrl = canvas.toDataURL("image/jpeg");
-
-        // Stop stream setelah ambil gambar
-        stream.getTracks().forEach(track => track.stop());
-
-        // Ambil lokasi
-        navigator.geolocation.getCurrentPosition(position => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          uploadData(dataUrl, lat, lon);
-        }, err => {
-          alert("❌ Gagal mengambil lokasi: " + err.message);
-        });
-      } catch (err) {
-        alert("❌ Gagal akses kamera: " + err.message);
-      }
-    }
-
-    // Tombol diklik => mulai proses
-    document.getElementById("startCapture").addEventListener("click", initCapture);
-  </script>
 </body>
 </html>
