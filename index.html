@@ -1,27 +1,70 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Neon Login UI</title>
+  <script>
+    if (!sessionStorage.getItem("loggedIn")) {
+      window.location.href = "login.html";
+    }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INABIKARI Genshin Theme</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="background">
-    <div class="orb"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
+<div class="sidebar">
+  <i class="ri-home-5-line" onclick="showContent('home')"></i>
+  <i class="ri-bar-chart-line" onclick="showContent('sales')"></i>
+  <i class="ri-qr-code-line" onclick="showContent('qr')"></i>
+</div>
+<div class="main">
+  <div class="header">
+    <div id="clock">00:00:00</div>
+    <div>
+      Halo, <strong id="userNameDisplay"></strong> |
+      <button onclick="logout()">Logout</button>
+    </div>
   </div>
 
-  <div class="login-box">
-    <h2>Neon Login</h2>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Masuk</button>
-    <div class="error" id="error-msg"></div>
+  <div class="content active" id="home">
+    <h2>Selamat Datang di Dashboard Eiternity</h2>
+    <p>Pilih menu di sidebar untuk memulai.</p>
   </div>
 
-  <script src="script.js"></script>
+  <div class="content hidden" id="sales">
+    <div class="container">
+      <h1>TOTO GACOR</h1>
+      <input type="file" id="fileInput" class="form-control" multiple>
+      <button id="processFile" class="btn btn-warning mt-3">Proses</button>
+      <div class="table-responsive mt-4">
+        <table class="table mt-3">
+          <thead>
+            <tr><th>#</th><th>Kasir</th><th>Total Dibayar</th><th>Total Harus Dibayar</th><th>Bayar Tunai</th><th>Non Tunai</th><th>Voucher</th><th>Kembalian</th><th>Waktu</th></tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+          <tfoot id="tableFooter"></tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="content hidden" id="qr">
+    <h1><i class="ri-flashlight-fill"></i> PLU TO BARCODE</h1>
+    <textarea id="inputarea" placeholder="Pisahkan data dengan spasi, enter, atau koma"></textarea>
+    <div class="options">
+      <label><input type="checkbox" id="opt-qr" checked> QR Code</label>
+      <label><input type="checkbox" id="opt-barcode" checked> Barcode</label>
+    </div>
+    <button id="generate">Buat Kode</button>
+    <div id="output"></div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
