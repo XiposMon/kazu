@@ -3,135 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login Neon Multi-Line</title>
+  <title>Login Neon</title>
+  <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-      height: 100vh;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .login-container {
-      position: relative;
-      width: 360px;
-      padding: 40px 30px;
-      background: #111;
-      border-radius: 20px;
-      color: #fff;
-      z-index: 1;
-    }
-
-    .login-container h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .login-container input {
-      width: 100%;
-      margin: 10px 0;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.1);
-      color: white;
-    }
-
-    .login-container input::placeholder {
-      color: rgba(255,255,255,0.5);
-    }
-
-    .login-container button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: #ff00cc;
-      color: white;
-      font-weight: bold;
-      margin-top: 15px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .login-container button:hover {
-      background: #cc00aa;
-    }
-
-    .error {
-      color: #ffaaaa;
-      margin-top: 10px;
-      text-align: center;
-    }
-
-    /* === NEON EFFECT LINES === */
-    .neon-line {
-      position: absolute;
-      width: 150%;
-      height: 150%;
-      top: -25%;
-      left: -25%;
-      border-radius: 50%;
-      background: conic-gradient(from 0deg, #ff00cc, #00ffff, #ff00cc);
-      opacity: 0.4;
-      filter: blur(40px);
-      z-index: -1;
-      animation: float1 6s linear infinite;
-    }
-
-    .neon-line::before,
-    .neon-line::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: conic-gradient(from 90deg, #00ffcc, #ffcc00, #00ffcc);
-      filter: blur(40px);
-      opacity: 0.4;
-    }
-
-    .neon-line::before {
-      animation: float2 9s ease-in-out infinite alternate;
-    }
-
-    .neon-line::after {
-      animation: float3 12s ease-in-out infinite alternate-reverse;
-    }
-
-    /* === Animasi Gerak Acak === */
-    @keyframes float1 {
-      0%   { transform: rotate(0deg) translate(0, 0); }
-      50%  { transform: rotate(180deg) translate(20px, -15px); }
-      100% { transform: rotate(360deg) translate(0, 0); }
-    }
-
-    @keyframes float2 {
-      0%   { transform: rotate(0deg) translate(10px, 20px); }
-      50%  { transform: rotate(180deg) translate(-15px, -10px); }
-      100% { transform: rotate(360deg) translate(10px, 20px); }
-    }
-
-    @keyframes float3 {
-      0%   { transform: rotate(0deg) translate(-10px, -15px); }
-      50%  { transform: rotate(180deg) translate(25px, 5px); }
-      100% { transform: rotate(360deg) translate(-10px, -15px); }
-    }
-  </style>
 </head>
 <body>
   <div class="login-container">
-    <div class="neon-line"></div> <!-- Efek Neon Glow Lingkaran -->
+    <div class="neon-line"></div>
     <h2>Neon Login</h2>
     <input type="text" id="username" placeholder="Username" />
     <input type="password" id="password" placeholder="Password" />
@@ -139,31 +17,6 @@
     <div class="error" id="error-msg"></div>
   </div>
 
-  <script>
-    const users = {
-      "admin": "1234",
-      "user": "abcd"
-    };
-
-    function login() {
-      const u = document.getElementById('username').value.trim();
-      const p = document.getElementById('password').value;
-      const error = document.getElementById('error-msg');
-
-      if (!u || !p) {
-        error.textContent = "Isi username dan password.";
-        return;
-      }
-
-      if (!users[u] || users[u] !== p) {
-        error.textContent = "Username atau password salah.";
-        return;
-      }
-
-      sessionStorage.setItem("loggedIn", "yes");
-      sessionStorage.setItem("username", u);
-      window.location.href = "Dash.html"; // Ganti sesuai file dashboard Anda
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
